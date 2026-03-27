@@ -117,7 +117,7 @@ export default function App() {
                             <Search size={24} /> Levels
                         </button>
                     </div>
-                    <div className="absolute bottom-4 w-full max-w-2xl h-24 px-4">
+                    <div className="hidden sm:block mt-10 w-full max-w-2xl h-24 px-4">
                         <AdSense slot={import.meta.env.VITE_ADSENSE_SLOT_ID || "1234567890"} />
                     </div>
                 </div>
