@@ -65,8 +65,14 @@ export default function App() {
         setState('playing');
     };
 
+    const isGameplayState = state === 'playing' || state === 'paused';
+
     return (
-        <div className="w-full h-[100dvh] bg-slate-950 text-yellow-400 font-mono overflow-hidden select-none touch-none flex flex-col relative">
+        <div
+            className={`w-full h-[100dvh] bg-slate-950 text-yellow-400 font-mono overflow-hidden select-none flex flex-col relative ${
+                isGameplayState ? 'touch-none' : 'touch-auto'
+            }`}
+        >
             {/* Header / Top Bar */}
             {state !== 'loading' && (
                 <div className="absolute top-0 left-0 w-full p-4 flex justify-between items-center z-50 pointer-events-none">
