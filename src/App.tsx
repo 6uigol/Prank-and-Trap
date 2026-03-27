@@ -66,6 +66,8 @@ export default function App() {
     };
 
     const isGameplayState = state === 'playing' || state === 'paused';
+    const shouldShowGameLayer =
+        state === 'playing' || state === 'paused' || state === 'gameover' || state === 'levelcomplete';
 
     return (
         <div
@@ -162,15 +164,15 @@ export default function App() {
                 </div>
             )}
 
-            {state === 'playing' && (
+            {shouldShowGameLayer && (
                 <div className="flex-1 relative w-full h-full">
                     <GameCanvas levelIndex={level} onWin={handleWin} onDie={handleDie} />
-                    <MobileControls />
+                    {state === 'playing' && <MobileControls />}
                 </div>
             )}
 
             {state === 'paused' && (
-                <div className="flex-1 flex flex-col items-center justify-center bg-slate-950/90 absolute inset-0 z-50 p-4">
+                <div className="flex-1 flex flex-col items-center justify-center bg-slate-950/85 backdrop-blur-[2px] absolute inset-0 z-50 p-4 overflow-y-auto">
                     <h2 className="text-4xl font-bold mb-8 text-yellow-400">PAUSED</h2>
                     <div className="flex gap-4 mb-12 flex-wrap justify-center">
                         <button onClick={() => setState('playing')} className="px-6 py-3 bg-yellow-400 text-black font-bold flex items-center gap-2 hover:bg-yellow-300">
@@ -183,32 +185,32 @@ export default function App() {
                             Main Menu
                         </button>
                     </div>
-                    <div className="w-full max-w-md h-64">
+                    <div className="w-full max-w-md h-32 sm:h-64">
                         <AdSense slot={import.meta.env.VITE_ADSENSE_SLOT_ID || "1234567890"} />
                     </div>
                 </div>
             )}
 
             {state === 'gameover' && (
-                <div className="flex-1 flex flex-col items-center justify-center bg-red-950/90 absolute inset-0 z-50 p-4">
+                <div className="flex-1 flex flex-col items-center justify-center bg-red-950/80 backdrop-blur-[2px] absolute inset-0 z-50 p-4 overflow-y-auto">
                     <h2 className="text-5xl font-black mb-4 text-red-500 tracking-widest text-center">YOU DIED</h2>
                     <p className="mb-8 text-red-300 text-center">Never trust the level.</p>
                     <button onClick={retryLevel} className="px-8 py-4 bg-red-600 text-white font-bold text-xl flex items-center gap-3 hover:bg-red-500 transition-colors">
                         <RotateCcw size={24} /> Try Again
                     </button>
-                    <div className="mt-12 w-full max-w-md h-64">
+                    <div className="mt-8 sm:mt-12 w-full max-w-md h-32 sm:h-64">
                         <AdSense slot={import.meta.env.VITE_ADSENSE_SLOT_ID || "1234567890"} />
                     </div>
                 </div>
             )}
 
             {state === 'levelcomplete' && (
-                <div className="flex-1 flex flex-col items-center justify-center bg-slate-950/90 absolute inset-0 z-50 p-4">
+                <div className="flex-1 flex flex-col items-center justify-center bg-slate-950/85 backdrop-blur-[2px] absolute inset-0 z-50 p-4 overflow-y-auto">
                     <h2 className="text-5xl font-black mb-8 text-green-500 tracking-widest text-center">LEVEL CLEARED</h2>
                     <button onClick={nextLevel} className="px-8 py-4 bg-green-500 text-black font-bold text-xl flex items-center gap-3 hover:bg-green-400 transition-colors">
                         <Play fill="currentColor" size={24} /> Next Level
                     </button>
-                    <div className="mt-12 w-full max-w-md h-64">
+                    <div className="mt-8 sm:mt-12 w-full max-w-md h-32 sm:h-64">
                         <AdSense slot={import.meta.env.VITE_ADSENSE_SLOT_ID || "1234567890"} />
                     </div>
                 </div>
